@@ -4,6 +4,5 @@
 
     public class LocalDataContext : DataContext
     {
-        public System.Data.Entity.DbSet<Products4.Domain.Category> Categories { get; set; }
     }
 }
