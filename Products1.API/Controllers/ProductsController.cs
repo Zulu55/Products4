@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Products1.Domain;
-
-namespace Products1.API.Controllers
+﻿namespace Products1.API.Controllers
 {
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Products1.Domain;
+
+    [Authorize]
     public class ProductsController : ApiController
     {
         private DataContext db = new DataContext();
@@ -27,7 +24,7 @@ namespace Products1.API.Controllers
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
         {
-            Product product = await db.Products.FindAsync(id);
+            var product = await db.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();

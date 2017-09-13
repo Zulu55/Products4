@@ -30,6 +30,8 @@
 
         public double Stock { get; set; }
 
+        public string Image { get; set; }
+
         [DataType(DataType.MultilineText)]
         public string Remarks { get; set; }
 
