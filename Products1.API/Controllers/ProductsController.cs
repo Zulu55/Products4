@@ -15,9 +15,10 @@
         private DataContext db = new DataContext();
 
         // GET: api/Products
-        public IQueryable<Product> GetProducts()
+        public async Task<IHttpActionResult> GetProducts()
         {
-            return db.Products;
+            var products = await db.Products.ToListAsync();
+            return Ok(products);
         }
 
         // GET: api/Products/5
