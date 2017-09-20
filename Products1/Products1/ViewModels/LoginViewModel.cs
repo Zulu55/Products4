@@ -12,6 +12,7 @@
         #endregion
 
         #region Services
+        ApiService apiService;
         DialogService dialogService;
         #endregion
 
@@ -118,6 +119,7 @@
         #region Constructors
         public LoginViewModel()
         {
+            apiService = new ApiService();
             dialogService = new DialogService();
 
             IsEnabled = true;
@@ -151,6 +153,51 @@
                     "You must enter a password.");
                 return;
             }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            var connectivity = await apiService.CheckConnection();
+            if (!connectivity.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage("Error", connectivity.Message);
+                return;
+            }
+
+            var token = await apiService.GetToken(
+                "http://productszuluapi.azurewebsites.net", 
+                Email, 
+                Password);
+
+            if (token == null)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage(
+                    "Error", 
+                    "The service is not available, please try latter.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(token.AccessToken))
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage(
+                    "Error",
+                    token.ErrorDescription);
+                Password = null;
+                return;
+            }
+
+            await dialogService.ShowMessage(
+                "Taran!!!",
+                "Welcome to the jungle.");
+
+            IsRunning = false;
+            IsEnabled = true;
         }
         #endregion
     }

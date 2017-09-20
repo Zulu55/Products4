@@ -26,7 +26,8 @@
                 <Label
                     Grid.Column="0"
                     Grid.Row="0"
-                    Text="Email:">
+                    Text="Email:"
+                    VerticalOptions="Center">
                 </Label>
                 <Entry
                     Grid.Column="1"
@@ -39,7 +40,8 @@
                 <Label
                     Grid.Column="0"
                     Grid.Row="1"
-                    Text="Password:">
+                    Text="Password:"
+                    VerticalOptions="Center">
                 </Label>
                 <Entry
                     Grid.Column="1"
