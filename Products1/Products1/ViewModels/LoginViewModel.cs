@@ -3,9 +3,11 @@
     using System.ComponentModel;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
+    using Views;
     using Services;
+    using Xamarin.Forms;
 
-    public class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged 
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -16,7 +18,7 @@
         DialogService dialogService;
         #endregion
 
-        #region Attibutes
+        #region Attributes
         string _email;
         string _password;
         bool _isToggled;
@@ -25,56 +27,20 @@
         #endregion
 
         #region Properties
-        public string Email
+        public bool IsEnabled
         {
             get
             {
-                return _email;
+                return _isEnabled;
             }
             set
             {
-                if (_email != value)
+                if (_isEnabled != value)
                 {
-                    _email = value;
+                    _isEnabled = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(Email)));
-                }
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return _password;
-            }
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(Password)));
-                }
-            }
-        }
-
-        public bool IsToggled
-        {
-            get
-            {
-                return _isToggled;
-            }
-            set
-            {
-                if (_isToggled != value)
-                {
-                    _isToggled = value;
-                    PropertyChanged?.Invoke(
-                        this,
-                        new PropertyChangedEventArgs(nameof(IsToggled)));
+                        new PropertyChangedEventArgs(nameof(IsEnabled)));
                 }
             }
         }
@@ -97,20 +63,56 @@
             }
         }
 
-        public bool IsEnabled
+        public bool IsToggled
         {
             get
             {
-                return _isEnabled;
+                return _isToggled;
             }
             set
             {
-                if (_isEnabled != value)
+                if (_isToggled != value)
                 {
-                    _isEnabled = value;
+                    _isToggled = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(IsEnabled)));
+                        new PropertyChangedEventArgs(nameof(IsToggled)));
+                }
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                if (_password != value)
+                {
+                    _password = value;
+                    PropertyChanged?.Invoke(
+                        this,
+                        new PropertyChangedEventArgs(nameof(Password)));
+                }
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                if (_email != value)
+                {
+                    _email = value;
+                    PropertyChanged?.Invoke(
+                        this, 
+                        new PropertyChangedEventArgs(nameof(Email)));
                 }
             }
         }
@@ -157,44 +159,50 @@
             IsRunning = true;
             IsEnabled = false;
 
-            var connectivity = await apiService.CheckConnection();
-            if (!connectivity.IsSuccess)
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await dialogService.ShowMessage("Error", connectivity.Message);
+                await dialogService.ShowMessage("Error", connection.Message);
                 return;
             }
 
-            var token = await apiService.GetToken(
+            var response = await apiService.GetToken(
                 "http://productszuluapi.azurewebsites.net", 
                 Email, 
                 Password);
 
-            if (token == null)
+            if (response == null)
             {
                 IsRunning = false;
                 IsEnabled = true;
                 await dialogService.ShowMessage(
                     "Error", 
                     "The service is not available, please try latter.");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(token.AccessToken))
-            {
-                IsRunning = false;
-                IsEnabled = true;
-                await dialogService.ShowMessage(
-                    "Error",
-                    token.ErrorDescription);
                 Password = null;
                 return;
             }
 
-            await dialogService.ShowMessage(
-                "Taran!!!",
-                "Welcome to the jungle.");
+            if (string.IsNullOrEmpty(response.AccessToken))
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await dialogService.ShowMessage(
+                    "Error", 
+                    response.ErrorDescription);
+                Password = null;
+                return;
+            }
+
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = response;
+            mainViewModel.Categories = new CategoriesViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(
+                new CategoriesView());
+
+            Email = null;
+            Password = null;
 
             IsRunning = false;
             IsEnabled = true;

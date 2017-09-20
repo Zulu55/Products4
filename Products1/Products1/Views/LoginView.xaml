@@ -8,8 +8,8 @@
 	<ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Login}"
-            Padding="5"
-            Spacing="20">
+            Padding="8"
+            Spacing="16">
             <Label
                 FontAttributes="Bold"
                 FontSize="Large"
@@ -17,7 +17,7 @@
                 Text="Products">
             </Label>
             <Grid
-                Margin="30,0">
+                Margin="50,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="2*"/>
@@ -55,7 +55,7 @@
                 HorizontalOptions="Center"
                 Orientation="Horizontal">
                 <Label
-                    Text="Remeberme: "
+                    Text="Rememberme "
                     VerticalOptions="Center">
                 </Label>
                 <Switch
@@ -67,45 +67,45 @@
                 Text="Forgot your password?"
                 TextColor="Blue">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding RememberCommand}"/>
+                    <TapGestureRecognizer Command="{Binding RecoverPasswordCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
-            <ActivityIndicator 
+            <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}">
             </ActivityIndicator>
-            <Button
-                Command="{Binding LoginCommand}"
-                BackgroundColor="Navy"
-                BorderRadius="23"
-                FontAttributes="Bold"
-                HeightRequest="46"
-                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                Margin="60,0"
-                Text="Login"
-                TextColor="White">
-            </Button>
-            <Button
-                Command="{Binding LoginFacebookCommand}"
-                BackgroundColor="Aqua"
-                BorderRadius="23"
-                FontAttributes="Bold"
-                HeightRequest="46"
-                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                Margin="60,0"
-                Text="Login With Facebook"
-                TextColor="Black">
-            </Button>
-            <Button
-                Command="{Binding RegisterCommand}"
-                BackgroundColor="Purple"
-                BorderRadius="23"
-                FontAttributes="Bold"
-                HeightRequest="46"
-                IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                Margin="60,0"
-                Text="Register New User"
-                TextColor="White">
-            </Button>
+            <StackLayout
+                Margin="50,0">
+                <Button
+                    Command="{Binding LoginCommand}"
+                    BackgroundColor="Navy"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Login"
+                    TextColor="White">
+                </Button>
+                <Button
+                    Command="{Binding RegisterNewUserCommand}"
+                    BackgroundColor="Purple"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Register New User"
+                    TextColor="White">
+                </Button>
+                <Button
+                    Command="{Binding LoginWithFacebookCommand}"
+                    BackgroundColor="Blue"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="Login with Facebook"
+                    TextColor="White">
+                </Button>
+            </StackLayout>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

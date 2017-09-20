@@ -23,9 +23,6 @@
         [JsonProperty(PropertyName = ".expires")]
         public DateTime Expires { get; set; }
 
-        [JsonProperty(PropertyName = "error")]
-        public string Error { get; set; }
-
         [JsonProperty(PropertyName = "error_description")]
         public string ErrorDescription { get; set; }
     }

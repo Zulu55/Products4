@@ -23,8 +23,7 @@
                 };
             }
 
-            var isReachable = await CrossConnectivity.Current.IsRemoteReachable(
-                "google.com");
+            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com");
             if (!isReachable)
             {
                 return new Response
@@ -41,10 +40,9 @@
             };
         }
 
-        public async Task<TokenResponse> GetToken(
-            string urlBase,
-            string username,
-            string password)
+        public async Task<TokenResponse> GetToken(string urlBase,
+                                                  string username,
+                                                  string password)
         {
             try
             {
@@ -348,4 +346,5 @@
                 };
             }
         }
-    }}
+    }
+}

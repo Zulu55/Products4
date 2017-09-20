@@ -49,6 +49,11 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\TokenResponse.cs" />
+    <Compile Include="Views\CategoriesView.xaml.cs">
+      <DependentUpon>CategoriesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CategoriesViewModel.cs" />
+    <Compile Include="Models\Category.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
@@ -56,6 +61,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\LoginView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CategoriesView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -78,6 +86,9 @@
     <Reference Include="GalaSoft.MvvmLight.Extras">
       <HintPath>..\..\packages\MvvmLightLibs.5.3.0.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\GalaSoft.MvvmLight.Extras.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
     </Reference>
@@ -86,9 +97,6 @@
     </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Plugin.Connectivity.Abstractions">
       <HintPath>..\..\packages\Xam.Plugin.Connectivity.3.0.2\lib\netstandard1.0\Plugin.Connectivity.Abstractions.dll</HintPath>
