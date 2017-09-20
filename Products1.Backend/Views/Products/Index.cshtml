@@ -15,7 +15,7 @@
             Category
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Product
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Image)
@@ -31,9 +31,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Stock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Remarks)
         </th>
         <th></th>
     </tr>
@@ -65,12 +62,9 @@
             @Html.DisplayFor(modelItem => item.Stock)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Remarks)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Details", "Details", new { id=item.ProductId }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

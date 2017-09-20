@@ -64,7 +64,6 @@
 
                 var product = ToProduct(view);
                 product.Image = pic;
-
                 db.Products.Add(product);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -187,7 +186,6 @@
             {
                 db.Dispose();
             }
-
             base.Dispose(disposing);
         }
     }

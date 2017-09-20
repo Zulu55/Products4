@@ -15,17 +15,16 @@
         private DataContext db = new DataContext();
 
         // GET: api/Products
-        public async Task<IHttpActionResult> GetProducts()
+        public IQueryable<Product> GetProducts()
         {
-            var products = await db.Products.ToListAsync();
-            return Ok(products);
+            return db.Products;
         }
 
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
         {
-            var product = await db.Products.FindAsync(id);
+            Product product = await db.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
