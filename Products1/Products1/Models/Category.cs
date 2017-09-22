@@ -1,9 +1,11 @@
 ﻿namespace Products1.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
+    using Xamarin.Forms;
+    using Views;
+    using ViewModels;
 
     public class Category
     {
@@ -24,9 +26,12 @@
             }
         }
 
-        void SelectCategory()
+        async void SelectCategory()
         {
-            throw new NotImplementedException();
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Products = new ProductsViewModel(Products);
+            await Application.Current.MainPage.Navigation.PushAsync(
+                new ProductsView());
         }
         #endregion
     }

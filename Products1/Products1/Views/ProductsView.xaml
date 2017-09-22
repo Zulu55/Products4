@@ -22,8 +22,9 @@
                                 </Grid.ColumnDefinitions>
                                 <Image
                                     Grid.Column="0"
-                                    HorizontalOptions="Start" 
-                                    Source="{Binding Image}">
+                                    HorizontalOptions="Start"
+                                    Source="{Binding ImageFullPath}"
+                                    WidthRequest="100">
                                 </Image>
                                 <Label 
                                     Grid.Column="1" 

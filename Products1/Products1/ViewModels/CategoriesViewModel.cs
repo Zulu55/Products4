@@ -23,7 +23,7 @@
         #endregion
 
         #region Properties
-        public ObservableCollection<Category> Categories
+        public ObservableCollection<Category> CategoriesList
         {
             get
             {
@@ -36,7 +36,7 @@
                     _categories = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(Categories)));
+                        new PropertyChangedEventArgs(nameof(CategoriesList)));
                 }
             }
         }
@@ -82,7 +82,7 @@
             }
 
             var categories = (List<Category>)response.Result;
-            Categories = new ObservableCollection<Category>(
+            CategoriesList = new ObservableCollection<Category>(
                 categories.OrderBy(c => c.Description));
         }
         #endregion
