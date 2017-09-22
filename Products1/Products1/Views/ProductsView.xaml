@@ -2,43 +2,41 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Products1.Views.CategoriesView" 
+    x:Class="Products1.Views.ProductsView" 
     BindingContext="{Binding Main, Source={StaticResource Locator}}" 
-    Title="Categories">
-    <ContentPage.Content>
+    Title="Products">
+	<ContentPage.Content>
         <StackLayout 
-            BindingContext="{Binding Categories}" 
+            BindingContext="{Binding Products}" 
             Padding="5">
             <ListView 
                 HasUnevenRows="true" 
-                ItemsSource="{Binding Categories}">
+                ItemsSource="{Binding Products}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="0"
+                                    HorizontalOptions="Start" 
+                                    Source="{Binding Image}">
+                                </Image>
                                 <Label 
-                                    Grid.Column="0" 
+                                    Grid.Column="1" 
                                     HorizontalOptions="FillAndExpand" 
-                                    FontSize="Large" 
+                                    FontSize="Medium" 
                                     Text="{Binding Description}" 
                                     VerticalOptions="Center">
                                 </Label>
-                                <Image 
-                                    HorizontalOptions="End" 
-                                    Source="ic_chevron_right">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="SelectCategoryCommand"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-    </ContentPage.Content>
+	</ContentPage.Content>
 </ContentPage>

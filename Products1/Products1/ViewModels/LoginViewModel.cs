@@ -124,6 +124,9 @@
             apiService = new ApiService();
             dialogService = new DialogService();
 
+            Email = "jzuluaga55@gmail.com";
+            Password = "123456";
+
             IsEnabled = true;
             IsToggled = true;
         }

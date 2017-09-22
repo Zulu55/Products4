@@ -54,6 +54,11 @@
     </Compile>
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Views\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml">
@@ -64,6 +69,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CategoriesView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ProductsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
