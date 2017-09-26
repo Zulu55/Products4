@@ -22,6 +22,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image
                                     Grid.Column="0"
+                                    HeightRequest="100"
                                     HorizontalOptions="Start"
                                     Source="{Binding ImageFullPath}"
                                     WidthRequest="100">
