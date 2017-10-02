@@ -8,10 +8,10 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem 
-            Icon="ic_add_circle" 
-            Command="{Binding NewCategoryCommand}" /> 
+            Command="{Binding NewCategoryCommand}"
+            Icon="ic_add_circle"/>
     </ContentPage.ToolbarItems>
-
+    
     <ContentPage.Content>
         <StackLayout 
             BindingContext="{Binding Categories}" 

@@ -198,7 +198,9 @@
             try
             {
                 var request = JsonConvert.SerializeObject(model);
-                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var content = new StringContent(
+                    request, Encoding.UTF8, 
+                    "application/json");
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = 
                     new AuthenticationHeaderValue(tokenType, accessToken);
@@ -209,9 +211,9 @@
 
 				if (!response.IsSuccessStatusCode)
                 {
-                    var answer = JsonConvert.DeserializeObject<Response>(result);
-                    answer.IsSuccess = false;
-                    return answer;
+                    var error = JsonConvert.DeserializeObject<Response>(result);
+                    error.IsSuccess = false;
+                    return error;
                 }
 
                 var newRecord = JsonConvert.DeserializeObject<T>(result);

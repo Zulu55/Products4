@@ -9,7 +9,7 @@
     public class MainViewModel
     {
         #region Services
-        NavigationService navigationService; 
+        NavigationService navigationService;
         #endregion
 
         #region Properties

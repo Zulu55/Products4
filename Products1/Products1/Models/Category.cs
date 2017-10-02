@@ -3,10 +3,8 @@
     using System.Collections.Generic;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
-    using Xamarin.Forms;
-    using Views;
-    using ViewModels;
     using Services;
+    using ViewModels;
 
     public class Category
     {

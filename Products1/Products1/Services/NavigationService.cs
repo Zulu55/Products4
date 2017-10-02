@@ -1,10 +1,11 @@
 ﻿namespace Products1.Services
 {
+    using System;
     using System.Threading.Tasks;
     using Views;
     using Xamarin.Forms;
 
-	public class NavigationService
+    public class NavigationService
     {
         public async Task Navigate(string pageName)
         {
@@ -22,8 +23,8 @@
 					await Application.Current.MainPage.Navigation.PushAsync(
 						new NewCategoryView());
 					break;
-			}    
-        }
+			}
+		}
 
         public async Task Back()
         {

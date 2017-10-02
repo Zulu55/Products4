@@ -94,12 +94,12 @@
             {
                 await dialogService.ShowMessage(
                     "Error", 
-                    "You must enter a description.");
+                    "You must enter a category description.");
                 return;
             }
 
-			IsRunning = true;
-			IsEnabled = false;
+            IsRunning = true;
+            IsEnabled = false;
 
 			var connection = await apiService.CheckConnection();
 			if (!connection.IsSuccess)
@@ -116,21 +116,28 @@
             };
 
             var mainViewModel = MainViewModel.GetInstance();
-            var response = await apiService.Post(
-                "http://productszuluapi.azurewebsites.net", 
-                "/api", 
-                "/Categories", 
-                mainViewModel.Token.TokenType, 
-                mainViewModel.Token.AccessToken, 
+
+			var response = await apiService.Post(
+				"http://productszuluapi.azurewebsites.net",
+				"/api",
+				"/Categories",
+                mainViewModel.Token.TokenType,
+                mainViewModel.Token.AccessToken,
                 category);
 
-            if (!response.IsSuccess)
-            {
+			if (!response.IsSuccess)
+			{
 				IsRunning = false;
 				IsEnabled = true;
-				await dialogService.ShowMessage("Error", response.Message);
+				await dialogService.ShowMessage(
+					"Error",
+					response.Message);
 				return;
 			}
+
+            category = (Category)response.Result;
+            var categoriesViewModel = CategoriesViewModel.GetInstance();
+            categoriesViewModel.AddCategory(category);
 
             await navigationService.Back();
 

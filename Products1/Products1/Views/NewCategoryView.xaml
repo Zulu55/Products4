@@ -2,8 +2,8 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    x:Class="Products1.Views.NewCategoryView" 
-    BindingContext="{Binding Main, Source={StaticResource Locator}}" 
+    x:Class="Products1.Views.NewCategoryView"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
     Title="New Category">
 	<ContentPage.Content>
         <StackLayout
@@ -13,8 +13,8 @@
                 Text="Category:">
             </Label>
             <Entry
-                Placeholder="Enter category description..."
-                Text="{Binding Description, Mode=TwoWay}">
+                Text="{Binding Description, Mode=TwoWay}"
+                Placeholder="Enter category description...">
             </Entry>
             <ActivityIndicator
                 IsRunning="{Binding IsRunning, Mode=TwoWay}"
@@ -26,8 +26,8 @@
                 BorderRadius="23"
                 FontAttributes="Bold"
                 HeightRequest="46"
-                Margin="50,0"
                 IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                Margin="50,0"
                 Text="Save"
                 TextColor="White"
                 VerticalOptions="EndAndExpand">
