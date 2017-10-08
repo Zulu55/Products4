@@ -18,9 +18,9 @@
             Padding="5">
             <ListView 
                 HasUnevenRows="true" 
-                IsPullToRefreshEnabled="True"
+                IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-                ItemsSource="{Binding CategoriesList}"
+                ItemsSource="{Binding Categories}"
                 RefreshCommand="{Binding RefreshCommand}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -35,7 +35,7 @@
                                     IsDestructive="true"     
                                     Text="Delete">
                                 </MenuItem>
-                            </ViewCell.ContextActions>                            
+                            </ViewCell.ContextActions>  
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

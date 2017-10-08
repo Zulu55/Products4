@@ -7,7 +7,7 @@
 	using Models;
 	using Services;
 
-	public class EditCategoryViewModel : INotifyPropertyChanged
+	public class EditProductViewModel: INotifyPropertyChanged
     {
 		#region Events
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -22,7 +22,7 @@
 		#region Attributes
 		bool _isRunning;
 		bool _isEnabled;
-		Category category;
+        Product product;
 		#endregion
 
 		#region Properties
@@ -67,18 +67,60 @@
 			get;
 			set;
 		}
+
+		public string Price
+		{
+			get;
+			set;
+		}
+
+		public bool IsActive
+		{
+			get;
+			set;
+		}
+
+		public DateTime LastPurchase
+		{
+			get;
+			set;
+		}
+
+		public string Stock
+		{
+			get;
+			set;
+		}
+
+		public string Remarks
+		{
+			get;
+			set;
+		}
+
+		public string Image
+		{
+			get;
+			set;
+		}
 		#endregion
 
 		#region Constructors
-		public EditCategoryViewModel(Category category)
-        {
-            this.category = category;
+		public EditProductViewModel(Product product)
+		{
+            this.product = product;
 
 			apiService = new ApiService();
 			dialogService = new DialogService();
 			navigationService = new NavigationService();
 
-            Description = category.Description;
+            Description = product.Description;
+            Image = product.ImageFullPath;
+            Price = product.Price.ToString();
+			IsActive = product.IsActive;
+			LastPurchase = product.LastPurchase;
+            Stock = product.Stock.ToString();
+            Remarks = product.Remarks;
 
 			IsEnabled = true;
 		}
@@ -99,7 +141,41 @@
 			{
 				await dialogService.ShowMessage(
 					"Error",
-					"You must enter a category description.");
+					"You must enter a product description.");
+				return;
+			}
+
+			if (string.IsNullOrEmpty(Price))
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					"You must enter a product price.");
+				return;
+			}
+
+			var price = decimal.Parse(Price);
+			if (price < 0)
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					"The price must be a value greather or equals than zero.");
+				return;
+			}
+
+			if (string.IsNullOrEmpty(Stock))
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					"You must enter a product stock.");
+				return;
+			}
+
+			var stock = double.Parse(Stock);
+			if (stock < 0)
+			{
+				await dialogService.ShowMessage(
+					"Error",
+					"The stock must be a value greather or equals than zero.");
 				return;
 			}
 
@@ -115,16 +191,22 @@
 				return;
 			}
 
-            category.Description = Description;
 			var mainViewModel = MainViewModel.GetInstance();
+
+            product.Description = Description;
+            product.IsActive = IsActive;
+            product.LastPurchase = LastPurchase;
+            product.Price = price;
+            product.Remarks = Remarks;
+            product.Stock = stock;
 
 			var response = await apiService.Put(
 				"http://productszuluapi.azurewebsites.net",
 				"/api",
-				"/Categories",
+				"/Products",
 				mainViewModel.Token.TokenType,
 				mainViewModel.Token.AccessToken,
-				category);
+				product);
 
 			if (!response.IsSuccess)
 			{
@@ -136,8 +218,7 @@
 				return;
 			}
 
-			var categoriesViewModel = CategoriesViewModel.GetInstance();
-			categoriesViewModel.Update(category);
+			ProductsViewModel.GetInstance().Update(product);
 
 			await navigationService.Back();
 

@@ -1,6 +1,5 @@
 ﻿namespace Products1.Services
 {
-    using System;
     using System.Threading.Tasks;
     using Views;
     using Xamarin.Forms;
@@ -25,7 +24,15 @@
 					break;
 				case "EditCategoryView":
 					await Application.Current.MainPage.Navigation.PushAsync(
-                        new EditCategoryView());
+						new EditCategoryView());
+					break;
+				case "NewProductView":
+					await Application.Current.MainPage.Navigation.PushAsync(
+						new NewProductView());
+					break;
+				case "EditProductView":
+					await Application.Current.MainPage.Navigation.PushAsync(
+						new EditProductView());
 					break;
 			}
 		}

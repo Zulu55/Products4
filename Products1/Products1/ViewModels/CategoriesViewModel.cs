@@ -1,6 +1,5 @@
 ﻿namespace Products1.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -29,7 +28,7 @@
         #endregion
 
         #region Properties
-        public ObservableCollection<Category> CategoriesList
+        public ObservableCollection<Category> Categories
         {
             get
             {
@@ -42,7 +41,7 @@
                     _categories = value;
                     PropertyChanged?.Invoke(
                         this,
-                        new PropertyChangedEventArgs(nameof(CategoriesList)));
+                        new PropertyChangedEventArgs(nameof(Categories)));
                 }
             }
         }
@@ -93,16 +92,28 @@
 		#endregion
 
 		#region Methods
-		public void AddCategory(Category category)
+		public void Add(Category category)
 		{
 			IsRefreshing = true;
 			categories.Add(category);
-			CategoriesList = new ObservableCollection<Category>(
+			Categories = new ObservableCollection<Category>(
 				categories.OrderBy(c => c.Description));
             IsRefreshing = false;
 		}
 
-		public async Task DeleteCategory(Category category)
+		public void Update(Category category)
+		{
+			IsRefreshing = true;
+			var oldCategory = categories
+                .Where(c => c.CategoryId == category.CategoryId)
+                .FirstOrDefault();
+            oldCategory = category;
+			Categories = new ObservableCollection<Category>(
+				categories.OrderBy(c => c.Description));
+			IsRefreshing = false;
+		}
+
+		public async Task Delete(Category category)
 		{
 			IsRefreshing = true;
 
@@ -134,21 +145,10 @@
 			}
 
             categories.Remove(category);
-			CategoriesList = new ObservableCollection<Category>(
+			Categories = new ObservableCollection<Category>(
 				categories.OrderBy(c => c.Description));
-			IsRefreshing = false;
-		}
 
-		public void UpdateCategory(Category category)
-		{
-			IsRefreshing = true;
-			var oldCategory = categories
-                .Where(c => c.CategoryId == category.CategoryId)
-                .FirstOrDefault();
-            oldCategory = category;
-			CategoriesList = new ObservableCollection<Category>(
-				categories.OrderBy(c => c.Description));
-			IsRefreshing = false;
+            IsRefreshing = false;
 		}
 
 		async void LoadCategories()
@@ -157,8 +157,7 @@
             var connection = await apiService.CheckConnection();
             if (!connection.IsSuccess)
             {
-                IsRefreshing = false;
-				await dialogService.ShowMessage(
+                await dialogService.ShowMessage(
                     "Error",
                     connection.Message);
                 return;
@@ -175,18 +174,17 @@
 
             if (!response.IsSuccess)
             {
-				IsRefreshing = false;
-				await dialogService.ShowMessage(
+                await dialogService.ShowMessage(
                     "Error",
                     response.Message);
                 return;
             }
 
             categories = (List<Category>)response.Result;
-            CategoriesList = new ObservableCollection<Category>(
+            Categories = new ObservableCollection<Category>(
                 categories.OrderBy(c => c.Description));
-			IsRefreshing = false;
-		}
+            IsRefreshing = false;
+        }
         #endregion
 
         #region Commands
@@ -198,5 +196,6 @@
             }
         }
         #endregion
+
     }
 }

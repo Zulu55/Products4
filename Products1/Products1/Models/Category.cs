@@ -1,6 +1,5 @@
 ﻿namespace Products1.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
@@ -10,7 +9,7 @@
     public class Category
     {
 		#region Services
-		DialogService dialogService;
+        DialogService dialogService;
 		NavigationService navigationService;
 		#endregion
 
@@ -22,18 +21,18 @@
         public List<Product> Products { get; set; }
         #endregion
 
-        #region Methods
-        public override int GetHashCode()
-        {
-            return CategoryId;
-        }
-        #endregion
-
         #region Constructors
         public Category()
         {
             dialogService = new DialogService();
             navigationService = new NavigationService();
+        }
+        #endregion
+
+        #region Methods
+        public override int GetHashCode()
+        {
+            return CategoryId;
         }
         #endregion
 
@@ -51,13 +50,12 @@
             var response = await dialogService.ShowConfirm(
                 "Confirm", 
                 "Are you sure to delete this record?");
-
             if (!response)
             {
                 return;
             }
 
-            await CategoriesViewModel.GetInstance().DeleteCategory(this);
+            await CategoriesViewModel.GetInstance().Delete(this);
         }
 
         public ICommand EditCommand
@@ -70,10 +68,10 @@
 
         async void Edit()
         {
-			var mainViewModel = MainViewModel.GetInstance();
-            mainViewModel.EditCategory = new EditCategoryViewModel(this);
-			await navigationService.Navigate("EditCategoryView");
-		}
+            MainViewModel.GetInstance().EditCategory = 
+                new EditCategoryViewModel(this);
+            await navigationService.Navigate("EditCategoryView");
+        }
 
         public ICommand SelectCategoryCommand
         {
@@ -87,6 +85,7 @@
         {
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Products = new ProductsViewModel(Products);
+            mainViewModel.Category = this;
             await navigationService.Navigate("ProductsView");
         }
         #endregion
